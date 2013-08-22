@@ -13,7 +13,6 @@ import com.isuru.track_me.sms_handling_system.SMSManager;
 
 public class SMSManagerTest extends ServiceTestCase<SMSManager> {
 	private static final String TAG = "MyBindServerTest";
-	Messenger mServer = null;
 
 	public SMSManagerTest(Class<SMSManager> serviceClass) {
 		super(SMSManager.class);
@@ -25,11 +24,9 @@ public class SMSManagerTest extends ServiceTestCase<SMSManager> {
 		try {
 			super.setUp();
 			Log.i(TAG, "setUp()");
-			Intent bindIntent = new Intent(
+			Intent intent = new Intent(
 					"com.isuru.track_me.sms_handling_system.SMSManager.START");
-			IBinder binder = bindService(bindIntent);
-			assertNotNull(binder);
-			mServer = new Messenger(binder);
+			assertNotNull(intent);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,16 +43,13 @@ public class SMSManagerTest extends ServiceTestCase<SMSManager> {
 	}
 
 	@SmallTest
-	public void testAHello() {
-		Log.i(TAG, "testAHello");
-		assertNotNull(mServer);
-		Message msg = Message.obtain(null, MyBindServer.MSG_SAY_HELLO);
+	public void testExtractMessage() {
+		Log.i(TAG, "testExtractMessage");
 		Log.i(TAG, "sending SAY_HELLO");
-		try {
-			mServer.send(msg);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+//		try {
+//		} catch (RemoteException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }
